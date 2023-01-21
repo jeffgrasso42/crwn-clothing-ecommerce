@@ -1,7 +1,8 @@
 import { createContext, useReducer } from "react";
 
-// Helper Functions
+import { createAction } from "../utils/reducer/reducer.utils";
 
+// Helper Functions
 /**
  * Updates the cart either by adding a new product or increasing the quantity of an existing product
  * 
@@ -120,7 +121,9 @@ export const CartProvider = ({children}) => {
       (total, cartItem) => total + (cartItem.price * cartItem.quantity), 0
     );
 
-    dispatch({ type: CART_ACTION_TYPES.SET_CART_ITEMS, payload: { cartItems: newCartItems, cartTotal: newCartTotal, cartCount: newCartCount }})
+    dispatch(
+      createAction(CART_ACTION_TYPES.SET_CART_ITEMS, { cartItems: newCartItems, cartTotal: newCartTotal, cartCount: newCartCount })
+    );
   }
 
   // CartProvider helper functions
@@ -140,7 +143,7 @@ export const CartProvider = ({children}) => {
   }
 
   const setIsCartOpen = (bool) => {
-    dispatch({ type: CART_ACTION_TYPES.IS_CART_OPEN, payload: bool })
+    dispatch(createAction(CART_ACTION_TYPES.IS_CART_OPEN, bool));
   }
   
   const value = { 
